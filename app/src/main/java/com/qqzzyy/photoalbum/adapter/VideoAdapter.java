@@ -1,5 +1,7 @@
 package com.qqzzyy.photoalbum.adapter;
 
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +43,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.name = mFileList.get(position);
-        holder.cover.setImageResource(R.drawable.videoplay);
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(holder.name);
+        Bitmap previewBitmap = mmr.getFrameAtTime();
+        holder.cover.setImageBitmap(previewBitmap);
     }
 
     @Override
